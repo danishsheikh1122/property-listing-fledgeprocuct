@@ -1,18 +1,19 @@
 // components/Listings.tsx
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import Masonry from "react-masonry-css";
 import ListingCard from "./ListingCard";
 import SearchBar from "./SearchBar";
 import ListingsFilter from "./ListingsFilters";
+import toast, { Toaster } from "react-hot-toast";
+
 const breakpointColumns = {
   default: 3,
   1100: 3,
   800: 2,
-  600: 1, // Ensure single column on very small screens
+  600: 1,
 };
-
 
 const COLORS = [
   "bg-white text-gray-900",
@@ -21,15 +22,14 @@ const COLORS = [
   "bg-neutral-800 text-neutral-100",
 ];
 
-// Static ads data with deterministic values
 const ads = Array(10)
   .fill(null)
   .map((_, i) => ({
     id: `ad-${i}`,
     type: "ad",
     title: `Sponsored Listing ${i + 1}`,
-    content: `Special Offer! Discount up to ${(i * 5) % 50}%`, // Deterministic discount
-    height: 200 + ((i * 50) % 300), // Deterministic height
+    content: `Special Offer! Discount up to ${(i * 5) % 50}%`,
+    height: 200 + ((i * 50) % 300),
   }));
 
 interface Listing {
@@ -54,6 +54,17 @@ export default function Listings({
     sortBy: "recent",
     priceRange: "all",
   });
+  const [remainingAttempts, setRemainingAttempts] = useState(0);
+  const [revealedContacts, setRevealedContacts] = useState<string[]>([]);
+  const [cooldownEnd, setCooldownEnd] = useState<number>(0);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(Math.max(0, Math.ceil((cooldownEnd - Date.now()) / 1000)));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [cooldownEnd]);
 
   const enhancedListings = useMemo(() => {
     const merged: Array<Listing | (typeof ads)[number]> = [];
@@ -110,6 +121,29 @@ export default function Listings({
       });
   }, [enhancedListings, filters]);
 
+  const handleRevealContact = useCallback(
+    async (listingId: string) => {
+      if (remainingAttempts <= 0) return false;
+
+      setRemainingAttempts((prev) => prev - 1);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setRevealedContacts((prev) => [...prev, listingId]);
+      return true;
+    },
+    [remainingAttempts]
+  );
+
+  const handleAdClick = useCallback(() => {
+    if (Date.now() < cooldownEnd) {
+      toast.error(`Wait ${timeLeft}s before clicking another ad`);
+      return;
+    }
+
+    setRemainingAttempts((prev) => prev + 1);
+    setCooldownEnd(Date.now() + 30000); // 30-second cooldown
+    toast.success("+1 reveal attempt earned!");
+  }, [cooldownEnd, timeLeft]);
+
   const handleSearch = useCallback((query: string) => {
     setFilters((p) => ({ ...p, searchQuery: query }));
   }, []);
@@ -120,9 +154,17 @@ export default function Listings({
 
   return (
     <div className="container py-8">
+      <Toaster position="bottom-right" />
       <div className="mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
         <SearchBar onSearch={handleSearch} />
         <ListingsFilter onFilterChange={handleFilterChange} />
+      </div>
+
+      <div className="mb-4 p-4 bg-neutral-100 rounded-lg">
+        <p className="text-sm font-medium">
+          🔥 Remaining Reveal Attempts: {remainingAttempts} | Cooldown:{" "}
+          {timeLeft > 0 ? `${timeLeft}s remaining` : "Ready!"}
+        </p>
       </div>
 
       <Masonry
@@ -135,13 +177,35 @@ export default function Listings({
             return (
               <div
                 key={item.id}
-                className="w-full flex flex-col p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg"
+                className={`w-full flex flex-col p-6 rounded-xl shadow-lg transition-all
+                  ${
+                    Date.now() < cooldownEnd
+                      ? "bg-blue-100 border-2 border-blue-300 cursor-not-allowed"
+                      : "bg-blue-50 border-2 border-blue-200 hover:border-blue-400 hover:shadow-xl cursor-pointer"
+                  }
+                `}
                 style={{ minHeight: item.height }}
+                onClick={handleAdClick}
               >
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs uppercase font-bold text-blue-600">
+                    Sponsored
+                  </span>
+                  {Date.now() < cooldownEnd && (
+                    <span className="text-xs text-blue-500">
+                      (Cooldown active)
+                    </span>
+                  )}
+                </div>
                 <h3 className="text-xl font-bold text-blue-800 mb-2">
                   {item.title}
                 </h3>
                 <p className="text-blue-600">{item.content}</p>
+                <div className="mt-4 text-sm text-blue-500">
+                  {Date.now() < cooldownEnd
+                    ? "Come back later for more attempts"
+                    : "Click to earn 1 reveal attempt"}
+                </div>
               </div>
             );
           }
@@ -150,9 +214,16 @@ export default function Listings({
           const colorClass = COLORS[getColorIndex(listing.id)];
 
           return (
-            <div key={listing.id} className={`w-full ${colorClass} rounded-xl shadow-lg p-6 flex-grow`}>
-
-              <ListingCard listing={listing} />
+            <div
+              key={listing.id}
+              className={`w-full ${colorClass} rounded-xl shadow-lg p-6 flex-grow`}
+            >
+              <ListingCard
+                listing={listing}
+                isContactRevealed={revealedContacts.includes(listing.id)}
+                onRevealContact={handleRevealContact}
+                remainingAttempts={remainingAttempts}
+              />
             </div>
           );
         })}
