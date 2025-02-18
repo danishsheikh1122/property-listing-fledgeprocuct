@@ -107,3 +107,22 @@ body {
   padding-left: 1rem;
   background-clip: padding-box;
 }
+
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600;
+}
+
+.font-display {
+  font-family: var(--font-display), ui-serif, serif;
+}
+
+.font-serif {
+  font-family: ui-serif, serif;
+}
+
+.font-mono {
+  font-family: ui-monospace, monospace;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&family=Space+Mono:wght@400;700&family=Lora:wght@400;500&family=Archivo:wght@400;500;600&display=swap');

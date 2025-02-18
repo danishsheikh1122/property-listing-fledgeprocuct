@@ -1,4 +1,3 @@
-// components/ListingCard.tsx
 "use client";
 
 import { useState } from "react";
@@ -9,36 +8,36 @@ const CARD_STYLES = [
   {
     titleSize: "text-2xl",
     titleWeight: "font-bold",
-    priceBg: "bg-blue-100",
-    borderStyle: "border-l-4 border-blue-500",
+    priceBg: "bg-white/20 text-white",
+    borderStyle: "border-l-8 border-cyan-300",
     featureMarker: "🔹",
   },
   {
     titleSize: "text-3xl",
     titleWeight: "font-extrabold",
-    priceBg: "bg-green-100",
-    borderStyle: "border-t-4 border-green-500",
+    priceBg: "bg-black/20 text-white",
+    borderStyle: "border-t-8 border-purple-400",
     featureMarker: "🌟",
   },
   {
     titleSize: "text-xl",
     titleWeight: "font-semibold italic",
-    priceBg: "bg-yellow-100",
-    borderStyle: "shadow-lg",
+    priceBg: "bg-white/20 text-white",
+    borderStyle: "shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]",
     featureMarker: "•",
   },
   {
     titleSize: "text-2xl",
     titleWeight: "font-medium underline",
-    priceBg: "bg-pink-100",
-    borderStyle: "rounded-none",
+    priceBg: "bg-black/20 text-white",
+    borderStyle: "rounded-none border-4 border-yellow-400",
     featureMarker: "→",
   },
   {
     titleSize: "text-2xl",
     titleWeight: "font-black",
-    priceBg: "bg-purple-100",
-    borderStyle: "border-2 border-black",
+    priceBg: "bg-white/20 text-white",
+    borderStyle: "border-4 border-green-500",
     featureMarker: "✔️",
   },
 ];
@@ -87,15 +86,13 @@ export default function ListingCard({
   };
 
   return (
-    <div
-      className={`h-full min-h-[250px] flex flex-col p-6 ${style.borderStyle} transition-all hover:scale-[1.01]`}
-    >
+    <div className="h-full min-h-[250px] flex flex-col p-6 transition-all hover:scale-[1.01]">
       <h3 className={`${style.titleSize} ${style.titleWeight} mb-4`}>
         {listing.title}
       </h3>
 
       <div className="flex-1 space-y-4">
-        <p className="text-sm opacity-80 font-mono">
+        <p className="text-sm opacity-90 font-mono">
           📍 {listing.location.address}, {listing.location.postal_code}
         </p>
 
@@ -103,7 +100,7 @@ export default function ListingCard({
           {listing.prices.map((price) => (
             <span
               key={price.type}
-              className={`px-3 py-1 rounded-full text-sm ${style.priceBg} font-medium`}
+              className={`px-3 py-1 rounded-full text-sm ${style.priceBg} font-medium backdrop-blur-sm`}
             >
               {price.type}: €{price.amount}
             </span>
@@ -122,7 +119,7 @@ export default function ListingCard({
         )}
       </div>
 
-      <div className="mt-6 pt-4 border-t border-opacity-20">
+      <div className="mt-6 pt-4 border-t border-white/20">
         {isContactRevealed ? (
           <div className="space-y-2">
             <p className="font-medium">📞 {listing.contact.phone}</p>
@@ -135,7 +132,7 @@ export default function ListingCard({
           <Button
             onClick={handleRevealContact}
             disabled={loading}
-            className="w-full bg-black text-white hover:bg-neutral-800"
+            className="w-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-all hover:scale-[1.02]"
           >
             {loading ? "Verifying..." : "Reveal Contact Details"}
           </Button>
@@ -144,6 +141,3 @@ export default function ListingCard({
     </div>
   );
 }
-
-
-

@@ -15,71 +15,56 @@ const breakpointColumns = {
 };
 
 const COLORS = [
-  "bg-gradient-to-br from-white to-gray-50",
-  "bg-gradient-to-br from-rose-50 to-50%",
-  "bg-gradient-to-br from-indigo-100 via-blue-50 to-purple-100",
-  "bg-gradient-to-br from-green-50 to-emerald-100",
-  "bg-gradient-to-br from-yellow-100 to-amber-50",
+  "bg-gradient-to-br from-purple-600 to-pink-500 text-white",
+  "bg-gradient-to-t from-cyan-500 to-blue-600 text-white",
+  "bg-gradient-to-bl from-green-400 to-emerald-600 text-gray-900",
+  "bg-gradient-to-tr from-red-500 to-orange-400 text-white",
+  "bg-gradient-to-br from-yellow-300 to-amber-500 text-gray-900",
 ];
 
 const FONTS = [
-  "font-poppins",      // Google Font
-  "font-playfair",     // Google Font
-  "font-space-mono",   // Google Font
-  "font-lora",         // Google Font
-  "font-archivo",      // Google Font
-];
-
-const BORDER_STYLES = [
-  "border-l-[6px] border-t-2 border-r-2 border-b-2 border-blue-600",
-  "clip-path-polygon shadow-[inset_0_-4px_0_0_rgba(79,70,229,0.4)]",
-  "border-4 border-dashed border-emerald-500/50",
-  "shadow-[0_0_0_4px_white,0_0_0_6px_#4f46e5]",
-  "before:absolute before:inset-0 before:bg-[url('/noise.png')] before:opacity-10 relative isolate",
-  "border-2 border-black/10 hover:border-black/30 transition-all",
-  "bg-white/50 backdrop-blur-sm border border-white/30 shadow-sm",
+  "font-sans",
+  "font-serif",
+  "font-mono",
+  "font-display",
+  "font-handwriting",
 ];
 
 const CARD_STYLES = [
   {
     titleSize: "text-2xl",
-    titleWeight: "font-bold tracking-tight",
-    priceBg: "bg-blue-100/50 border border-blue-200",
-    borderStyle: "border-l-4 border-blue-500 shadow-lg",
+    titleWeight: "font-bold",
+    priceBg: "bg-white/20 text-white",
+    borderStyle: "border-l-8 border-cyan-300",
     featureMarker: "🔹",
-    className: "hover:-rotate-1 transition-transform",
   },
   {
     titleSize: "text-3xl",
-    titleWeight: "font-black uppercase tracking-wider",
-    priceBg: "bg-gradient-to-r from-green-100 to-green-50 border border-green-200",
-    borderStyle: "rounded-xl overflow-hidden shadow-2xl",
-    featureMarker: "▸",
-    className: "hover:translate-y-2 transition-transform",
+    titleWeight: "font-extrabold",
+    priceBg: "bg-black/20 text-white",
+    borderStyle: "border-t-8 border-purple-400",
+    featureMarker: "🌟",
   },
   {
     titleSize: "text-xl",
     titleWeight: "font-semibold italic",
-    priceBg: "bg-yellow-100/40 border-2 border-dashed border-yellow-400",
-    borderStyle: "rounded-none border-b-4 border-black",
+    priceBg: "bg-white/20 text-white",
+    borderStyle: "shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]",
     featureMarker: "•",
-    className: "hover:skew-y-1 transition-transform",
   },
   {
     titleSize: "text-2xl",
-    titleWeight: "font-medium underline decoration-wavy",
-    priceBg: "bg-pink-100/60 shadow-inner",
-    borderStyle: "border-2 border-black/20 hover:border-black/40",
+    titleWeight: "font-medium underline",
+    priceBg: "bg-black/20 text-white",
+    borderStyle: "rounded-none border-4 border-yellow-400",
     featureMarker: "→",
-    className: "hover:scale-[1.02] transition-transform",
   },
   {
     titleSize: "text-2xl",
-    titleWeight: "font-black font-space-mono",
-    priceBg: "bg-purple-100/80 border border-purple-300",
-    borderStyle: "clip-path-hexagon shadow-xl",
+    titleWeight: "font-black",
+    priceBg: "bg-white/20 text-white",
+    borderStyle: "border-4 border-green-500",
     featureMarker: "✔️",
-    className: "hover:rotate-1 transition-transform",
   },
 ];
 
@@ -87,52 +72,47 @@ const AD_TEMPLATES = [
   {
     title: "Premium Office Spaces 🏢",
     content: "Exclusive deals for tech startups!",
-    color: "from-blue-100 to-blue-50",
-    border: "border-blue-200",
-    font: "font-playfair",
-    style: "border-l-4 border-blue-500 shadow-xl",
+    color: "from-blue-600 to-purple-500",
+    border: "border-cyan-300",
+    font: "font-serif",
+    style: "border-l-8 border-cyan-300",
     emoji: "🚀",
-    className: "hover:shadow-blue-200/40",
   },
   {
     title: "Luxury Apartments 🌆",
     content: "Waterfront views & modern amenities",
-    color: "from-rose-100 via-pink-50 to-rose-50",
-    border: "border-rose-200",
-    font: "font-poppins",
-    style: "shadow-lg hover:shadow-rose-200/40",
+    color: "from-rose-600 to-pink-500",
+    border: "border-rose-300",
+    font: "font-display",
+    style: "shadow-[0_0_30px_-5px_rgba(255,100,100,0.5)]",
     emoji: "🌟",
-    className: "hover:-translate-y-2",
   },
   {
     title: "Co-Working Hub 🖥️",
     content: "24/7 access • Free coffee • Meeting rooms",
-    color: "from-emerald-100 to-emerald-50",
-    border: "border-emerald-200",
-    font: "font-space-mono",
-    style: "rounded-none border-b-4 border-emerald-500",
+    color: "from-emerald-500 to-green-600",
+    border: "border-emerald-300",
+    font: "font-mono",
+    style: "rounded-none border-t-8 border-green-400",
     emoji: "💡",
-    className: "hover:skew-x-2",
   },
   {
     title: "Retail Spaces 🛍️",
     content: "High foot traffic locations available",
-    color: "from-amber-100 to-amber-50",
-    border: "border-amber-200",
-    font: "font-archivo",
-    style: "border-dashed border-2 border-amber-500",
+    color: "from-amber-500 to-orange-400",
+    border: "border-amber-300",
+    font: "font-bold",
+    style: "border-dashed border-4 border-yellow-400",
     emoji: "📍",
-    className: "hover:rotate-2",
   },
   {
-    title: "Industrial Warehouses 🏭",
+    title: "Industrial Warehouses �",
     content: "Secure storage solutions",
-    color: "from-stone-100 to-stone-50",
-    border: "border-stone-300",
-    font: "font-lora",
-    style: "border-2 border-stone-500 shadow-md",
+    color: "from-indigo-600 to-blue-500",
+    border: "border-indigo-300",
+    font: "font-extrabold",
+    style: "border-8 border-purple-300",
     emoji: "🛡️",
-    className: "hover:scale-[1.02]",
   },
 ];
 
@@ -276,16 +256,15 @@ export default function Listings({
       const isCooling = Date.now() < cooldownEnd;
       return `
       bg-gradient-to-br ${t.color}
-      border-2 ${t.border}
+      border-4 ${t.border}
       ${t.font}
       ${t.style}
       ${
         isCooling
           ? "opacity-75 cursor-not-allowed"
-          : "hover:shadow-xl cursor-pointer"
+          : "hover:shadow-xl cursor-pointer hover:scale-[1.02]"
       }
       transition-all duration-300
-      ${ad.template.index % 2 === 0 ? "hover:-rotate-1" : "hover:rotate-1"}
     `;
     },
     [cooldownEnd]
@@ -301,13 +280,19 @@ export default function Listings({
 
   return (
     <div className="container py-8">
-      <Toaster position="bottom-right" />
+      <Toaster position="bottom-right" toastOptions={{ 
+        style: {
+          background: '#4F46E5',
+          color: '#fff',
+          border: '2px solid #818CF8'
+        }
+      }} />
       <div className="mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
         <SearchBar onSearch={handleSearch} />
         <ListingsFilter onFilterChange={handleFilterChange} />
       </div>
 
-      <div className="mb-4 p-4 bg-neutral-100 rounded-lg">
+      <div className="mb-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl border-2 border-white/20">
         <p className="text-sm font-medium">
           🔥 Remaining Reveal Attempts: {remainingAttempts} | Cooldown:{" "}
           {timeLeft > 0 ? `${timeLeft}s remaining` : "Ready!"}
@@ -332,7 +317,7 @@ export default function Listings({
                 onClick={handleAdClick}
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs uppercase font-bold opacity-75">
+                  <span className="text-xs uppercase font-bold opacity-90">
                     Partner Offer
                   </span>
                   {Date.now() < cooldownEnd && (
@@ -345,7 +330,7 @@ export default function Listings({
                 <h3
                   className={`text-2xl mb-3 ${
                     ad.template.index % 2 === 0
-                      ? "text-gradient"
+                      ? "text-gradient from-cyan-300 to-blue-500"
                       : "underline decoration-wavy"
                   }`}
                 >
@@ -354,7 +339,7 @@ export default function Listings({
 
                 <p className="text-lg mb-4">{ad.content}</p>
 
-                <div className="mt-auto text-sm opacity-75">
+                <div className="mt-auto text-sm opacity-90">
                   {Date.now() < cooldownEnd
                     ? "New offers available soon"
                     : "Click to continue"}
@@ -367,11 +352,12 @@ export default function Listings({
           const colorClass = COLORS[getColorIndex(listing.id)];
           const fontClass = FONTS[getFontIndex(listing.id)];
           const styleType = getStyleType(listing.id);
+          const borderStyle = CARD_STYLES[styleType].borderStyle;
 
           return (
             <div
               key={listing.id}
-              className={`w-full ${colorClass} ${fontClass} rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow`}
+              className={`w-full ${colorClass} ${fontClass} rounded-xl shadow-lg hover:shadow-xl transition-all ${borderStyle} overflow-hidden`}
             >
               <ListingCard
                 listing={listing}
