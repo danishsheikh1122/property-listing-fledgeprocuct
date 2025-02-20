@@ -1,5 +1,5 @@
 // app/page.tsx
-import Listings from '@/components/Listings';
+// import Listings from '@/components/Listings';
 import supabase from '@/lib/supabase';
 
 async function getListings() {
@@ -13,5 +13,5 @@ async function getListings() {
 
 export default async function Home() {
   const listings = await getListings();
-  return <Listings initialListings={listings} />;
+  return "ok"
 }
