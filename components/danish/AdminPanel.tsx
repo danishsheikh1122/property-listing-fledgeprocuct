@@ -71,7 +71,7 @@ export default function AdminPanel() {
       if (!isAdmin) return;
 
       const { data, error } = await supabase
-        .from("listings")
+        .from("properties")
         .select(
           `
           *,
@@ -96,7 +96,7 @@ export default function AdminPanel() {
     try {
       setUpdating(propertyId);
       const { error } = await supabase
-        .from("listings")
+        .from("properties")
         .update({ verified: !currentStatus })
         .eq("id", propertyId);
 

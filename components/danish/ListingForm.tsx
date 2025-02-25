@@ -66,7 +66,7 @@ export function ListingForm({ userId, onClose, onSuccess }: ListingFormProps) {
     setError("");
 
     try {
-      const { error } = await supabase.from("listings").insert([
+      const { error } = await supabase.from("properties").insert([
         {
           ...formData,
           price: Number(formData.price),

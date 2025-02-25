@@ -8,7 +8,7 @@ export async function GET() {
   
   try {
     const { data, error } = await supabase
-      .from('listings')
+      .from('properties')
       .select('*')
       .order('created_at', { ascending: false })
 
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
   try {
     const { data, error } = await supabase
-      .from('listings')
+      .from('properties')
       .insert([propertyData])
       .select()
 
@@ -40,4 +40,4 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
-}
+}3

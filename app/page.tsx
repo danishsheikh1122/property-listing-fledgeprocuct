@@ -1,22 +1,29 @@
-// app/page.tsx
-import Listings from '@/components/Listings';
-import supabase from '@/lib/supabase';
+"use client"; // ✅ Fix by using a client component
 
-async function getListings() {
-  const { data, error } = await supabase
-    .from('listings')
-    .select('*')
-    .order('created_at', { ascending: false });
+import { useEffect, useState } from "react";
+import Listings from "@/components/Listings";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-  if (error) {
-    console.error('Error fetching listings:', error);
-    return [];
-  }
+export default function Home() {
+  const supabase = createClientComponentClient();
+  const [listings, setListings] = useState([]);
 
-  return data || [];
-}
+  useEffect(() => {
+    async function fetchListings() {
+      const { data, error } = await supabase
+        .from("properties")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-export default async function Home() {
-  const listings = await getListings();
+      if (error) {
+        console.error("Error fetching listings:", error);
+        return;
+      }
+      setListings(data || []);
+    }
+
+    fetchListings();
+  }, []);
+
   return <Listings initialListings={listings} />;
 }
