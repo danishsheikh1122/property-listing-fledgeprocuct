@@ -1,29 +1,24 @@
-"use client"; // ✅ Fix by using a client component
+import Listings from '@/components/Listings';
+import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 
-import { useEffect, useState } from "react";
-import Listings from "@/components/Listings";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+async function getListings() {
+  const supabase = createServerActionClient({ cookies }); // No need for `() => cookies()`
 
-export default function Home() {
-  const supabase = createClientComponentClient();
-  const [listings, setListings] = useState([]);
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .order('created_at', { ascending: false });
 
-  useEffect(() => {
-    async function fetchListings() {
-      const { data, error } = await supabase
-        .from("properties")
-        .select("*")
-        .order("created_at", { ascending: false });
+  if (error) {
+    console.error('Error fetching listings:', error);
+    return [];
+  }
 
-      if (error) {
-        console.error("Error fetching listings:", error);
-        return;
-      }
-      setListings(data || []);
-    }
+  return data || [];
+}
 
-    fetchListings();
-  }, []);
-
+export default async function Home() {
+  const listings = await getListings();
   return <Listings initialListings={listings} />;
 }

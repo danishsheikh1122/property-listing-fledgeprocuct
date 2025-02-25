@@ -95,9 +95,9 @@ export default function ListingCard({
       </h3>
 
       <div className="flex-1 space-y-4">
-        <p className="text-sm opacity-80 font-mono">
+        {/* <p className="text-sm opacity-80 font-mono">
           📍 {listing.location.address}, {listing.location.postal_code}
-        </p>
+        </p> */}
 
         <div className="flex flex-wrap gap-2">
           {Array.isArray(listing.prices) ? (
