@@ -100,14 +100,18 @@ export default function ListingCard({
         </p>
 
         <div className="flex flex-wrap gap-2">
-          {listing.prices.map((price) => (
-            <span
-              key={price.type}
-              className={`px-3 py-1 rounded-full text-sm ${style.priceBg} font-medium`}
-            >
-              {price.type}: €{price.amount}
-            </span>
-          ))}
+          {Array.isArray(listing.prices) ? (
+            listing.prices.map((price) => (
+              <span
+                key={price.type}
+                className={`px-3 py-1 rounded-full text-sm ${style.priceBg} font-medium`}
+              >
+                {price.type}: €{price.amount}
+              </span>
+            ))
+          ) : (
+            <span>No pricing available</span>
+          )}
         </div>
 
         {listing.features && (
@@ -144,6 +148,3 @@ export default function ListingCard({
     </div>
   );
 }
-
-
-

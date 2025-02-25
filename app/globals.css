@@ -126,3 +126,14 @@ body {
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&family=Space+Mono:wght@400;700&family=Lora:wght@400;500&family=Archivo:wght@400;500;600&display=swap');
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

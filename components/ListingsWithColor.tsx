@@ -280,13 +280,16 @@ export default function Listings({
 
   return (
     <div className="container py-8">
-      <Toaster position="bottom-right" toastOptions={{ 
-        style: {
-          background: '#4F46E5',
-          color: '#fff',
-          border: '2px solid #818CF8'
-        }
-      }} />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            background: "#4F46E5",
+            color: "#fff",
+            border: "2px solid #818CF8",
+          },
+        }}
+      />
       <div className="mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
         <SearchBar onSearch={handleSearch} />
         <ListingsFilter onFilterChange={handleFilterChange} />
