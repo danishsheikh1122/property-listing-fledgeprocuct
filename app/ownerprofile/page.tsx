@@ -65,9 +65,9 @@ export default function ProfilePage() {
   )
 
   return (
-    <div className="min-h-screen bg-[#EBEDDF] p-8">
+    <div className="min-h-screen bg-white  p-8">
       <header className="max-w-7xl mx-auto mb-8">
-        <div className="flex justify-between items-center bg-[#333A2F] p-6 rounded-xl text-[#EBEDDF]">
+        <div className="flex justify-between items-center bg-[#d1c393] p-6 rounded-xl text-[#EBEDDF]">
           <div>
             <h1 className="text-2xl font-bold">Welcome back, {user.email}</h1>
             <p className="text-[#EBEDDF]/80 mt-1">
