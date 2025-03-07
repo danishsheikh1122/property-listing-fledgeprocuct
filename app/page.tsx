@@ -14,7 +14,7 @@ async function getListings() {
     console.error('Error fetching listings:', error);
     return [];
   }
-
+  console.log(data)
   return data || [];
 }
 

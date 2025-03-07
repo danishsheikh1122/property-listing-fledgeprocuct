@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
+import { BadgeCheck } from "lucide-react";
 
 const CARD_STYLES = [
   {
@@ -38,7 +39,7 @@ const CARD_STYLES = [
     titleSize: "text-2xl",
     titleWeight: "font-black",
     priceBg: "bg-purple-100",
-    borderStyle: "border-2 border-black",
+    borderStyle: "",
     featureMarker: "✔️",
   },
 ];
@@ -57,7 +58,17 @@ interface ListingCardProps {
   onRevealContact: (listingId: string) => Promise<boolean>;
   remainingAttempts: number;
   styleType: number;
+  colorClass : string;
 }
+const BUTTON_COLORS: Record<string, string> = {
+  "bg-gradient-to-br from-white to-gray-50": "bg-gray-200 hover:bg-gray-300 text-gray-700",
+  "bg-gradient-to-br from-rose-50 to-50%": "bg-rose-200 hover:bg-rose-300 text-rose-700",
+  "bg-gradient-to-br from-indigo-100 via-blue-50 to-purple-100": "bg-indigo-200 hover:bg-indigo-300 text-indigo-700",
+  "bg-gradient-to-br from-green-50 to-emerald-100": "bg-green-200 hover:bg-green-300 text-green-700",
+  "bg-gradient-to-br from-yellow-100 to-amber-50": "bg-yellow-200 hover:bg-yellow-300 text-yellow-700",
+};
+
+
 
 export default function ListingCard({
   listing,
@@ -65,9 +76,13 @@ export default function ListingCard({
   onRevealContact,
   remainingAttempts,
   styleType,
+  colorClass,
 }: ListingCardProps) {
   const [loading, setLoading] = useState(false);
   const style = CARD_STYLES[styleType % CARD_STYLES.length];
+
+
+  const buttonColor = BUTTON_COLORS[colorClass] || "bg-gray-200 hover:bg-gray-300 text-gray-900"; // Default fallback
 
   const handleRevealContact = async () => {
     if (remainingAttempts <= 0) {
@@ -90,9 +105,11 @@ export default function ListingCard({
     <div
       className={`h-full min-h-[250px] flex flex-col p-6 ${style.borderStyle} transition-all hover:scale-[1.01]`}
     >
-      <h3 className={`${style.titleSize} ${style.titleWeight} mb-4`}>
-        {listing.title}
-      </h3>
+ <h3 className={`${style.titleSize} ${style.titleWeight} mb-4 flex items-start gap-x-2`}>
+  <span className="flex-1">{listing.title}</span>
+  <BadgeCheck className="w-8 h-8 shrink-0 self-auto text-blue-500" />
+</h3>
+
 
       <div className="flex-1 space-y-4">
         {/* <p className="text-sm opacity-80 font-mono">
@@ -139,7 +156,7 @@ export default function ListingCard({
           <Button
             onClick={handleRevealContact}
             disabled={loading}
-            className="w-full bg-black text-white hover:bg-neutral-800"
+            className={`w-full bg-black text-white hover:bg-neutral-800 ${buttonColor}`}
           >
             {loading ? "Verifying..." : "Reveal Contact Details"}
           </Button>

@@ -1,6 +1,8 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
+
+
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -57,6 +59,7 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
+        poppins: ['var(--font-poppins)', 'sans-serif'],
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       keyframes: {

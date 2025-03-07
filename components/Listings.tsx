@@ -6,6 +6,7 @@ import ListingCard from "./ListingCard";
 import SearchBar from "./SearchBar";
 import ListingsFilter from "./ListingsFilters";
 import toast, { Toaster } from "react-hot-toast";
+import HeroSection from "./adnan/Hero";
 
 const breakpointColumns = {
   default: 3,
@@ -300,6 +301,8 @@ export default function Listings({
   }, []);
 
   return (
+    <>
+    <HeroSection></HeroSection>
     <div className="container py-8">
       <Toaster position="bottom-right" />
       <div className="mb-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
@@ -379,11 +382,13 @@ export default function Listings({
                 onRevealContact={handleRevealContact}
                 remainingAttempts={remainingAttempts}
                 styleType={styleType}
+                colorClass={colorClass}
               />
             </div>
           );
         })}
       </Masonry>
     </div>
+    </>
   );
 }
